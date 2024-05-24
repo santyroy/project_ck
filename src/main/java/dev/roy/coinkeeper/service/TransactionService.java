@@ -22,10 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -221,7 +218,9 @@ public class TransactionService {
                 }
             }
         });
-
-        return new BudgetDetailsResponseDTO(totalIncomeAndExpenseByUserMap);
+        Set<String> allBudgetMembers = new HashSet<>();
+        allBudgetMembers.add(budget.getUser().getEmail());
+        allBudgetMembers.addAll(budget.getMembers().stream().map(User::getEmail).toList());
+        return new BudgetDetailsResponseDTO(totalIncomeAndExpenseByUserMap, allBudgetMembers);
     }
 }
