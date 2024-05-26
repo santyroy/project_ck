@@ -60,7 +60,7 @@ public class AuthController {
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
         cookie.setMaxAge(60 * 60);
-        cookie.setAttribute("SameSite", "None");
+        cookie.setAttribute("SameSite", "Lax");
         response.addCookie(cookie);
         HashMap<String, Object> data = new HashMap<>();
         data.put("jwt", loginResponseDTO.jwt());
