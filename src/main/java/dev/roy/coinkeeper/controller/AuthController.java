@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
+
+    @Value("${cors.origins}")
+    private String[] origins;
 
     private static final String REFRESH_TOKEN = "refreshToken";
 
@@ -61,6 +65,7 @@ public class AuthController {
         cookie.setHttpOnly(true);
         cookie.setMaxAge(24 * 60 * 60);
         cookie.setAttribute("SameSite", "None");
+        cookie.setDomain(origins[0]);
         response.addCookie(cookie);
         HashMap<String, Object> data = new HashMap<>();
         data.put("jwt", loginResponseDTO.jwt());
