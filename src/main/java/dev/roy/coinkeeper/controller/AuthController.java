@@ -59,7 +59,7 @@ public class AuthController {
         Cookie cookie = new Cookie(REFRESH_TOKEN, loginResponseDTO.refreshToken().getToken());
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
-        cookie.setMaxAge(24 * 60 * 60);
+        cookie.setMaxAge(60 * 60);
         cookie.setAttribute("SameSite", "None");
         response.addCookie(cookie);
         HashMap<String, Object> data = new HashMap<>();
