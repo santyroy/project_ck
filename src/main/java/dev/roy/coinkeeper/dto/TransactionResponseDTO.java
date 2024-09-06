@@ -9,6 +9,9 @@ public record TransactionResponseDTO(
         TransactionType type,
         Float amount,
         String category,
+        String name,
+        Float quantity,
+        String unit,
         LocalDateTime date,
         TransactionBudgetDTO budget,
         TransactionUserDTO user) {

@@ -49,6 +49,9 @@ public class TransactionService {
         transaction.setUser(user);
         transaction.setDate(LocalDateTime.now());
         transaction.setAmount(dto.amount());
+        transaction.setName(dto.name());
+        transaction.setQuantity(dto.quantity());
+        transaction.setUnit(dto.unit());
         transaction.setType(TransactionType.CREDIT.name().equals(dto.type().toUpperCase()) ? TransactionType.CREDIT : TransactionType.DEBIT);
         if (dto.category() != null) {
             transaction.setCategory(dto.category());
@@ -58,7 +61,8 @@ public class TransactionService {
         log.info("Transaction for userId {} with budgetId: {} saved", userId, budgetId);
         return new TransactionResponseDTO(savedTransaction.getId(),
                 savedTransaction.getType(), savedTransaction.getAmount(),
-                savedTransaction.getCategory(), savedTransaction.getDate(),
+                savedTransaction.getCategory(), savedTransaction.getName(), savedTransaction.getQuantity(),
+                savedTransaction.getUnit(), savedTransaction.getDate(),
                 new TransactionBudgetDTO(savedTransaction.getBudget().getId(), savedTransaction.getBudget().getName()),
                 new TransactionUserDTO(savedTransaction.getUser().getId(), savedTransaction.getUser().getName())
         );
@@ -68,6 +72,7 @@ public class TransactionService {
         log.info("Find transaction by id: {}", transactionId);
         Transaction transaction = getTransaction(transactionId);
         return new TransactionResponseDTO(transaction.getId(), transaction.getType(), transaction.getAmount(), transaction.getCategory(),
+                transaction.getName(), transaction.getQuantity(), transaction.getUnit(),
                 transaction.getDate(), new TransactionBudgetDTO(transaction.getBudget().getId(), transaction.getBudget().getName()),
                 new TransactionUserDTO(transaction.getUser().getId(), transaction.getUser().getName()));
     }
@@ -94,7 +99,8 @@ public class TransactionService {
         log.info("Updating transaction for id: {} completed", transactionId);
         return new TransactionResponseDTO(updatedTransaction.getId(),
                 updatedTransaction.getType(), updatedTransaction.getAmount(),
-                updatedTransaction.getCategory(), updatedTransaction.getDate(),
+                updatedTransaction.getCategory(), updatedTransaction.getName(), updatedTransaction.getQuantity(),
+                updatedTransaction.getUnit(), updatedTransaction.getDate(),
                 new TransactionBudgetDTO(updatedTransaction.getBudget().getId(), updatedTransaction.getBudget().getName()),
                 new TransactionUserDTO(updatedTransaction.getUser().getId(), updatedTransaction.getUser().getName())
         );
@@ -106,7 +112,8 @@ public class TransactionService {
         return transactions
                 .map(transaction -> new TransactionResponseDTO(transaction.getId(),
                         transaction.getType(), transaction.getAmount(),
-                        transaction.getCategory(), transaction.getDate(),
+                        transaction.getCategory(), transaction.getName(), transaction.getQuantity(),
+                        transaction.getUnit(), transaction.getDate(),
                         new TransactionBudgetDTO(transaction.getBudget().getId(), transaction.getBudget().getName()),
                         new TransactionUserDTO(transaction.getUser().getId(), transaction.getUser().getName()))
                 );
@@ -120,7 +127,8 @@ public class TransactionService {
         return transactions
                 .map(transaction -> new TransactionResponseDTO(transaction.getId(),
                         transaction.getType(), transaction.getAmount(),
-                        transaction.getCategory(), transaction.getDate(),
+                        transaction.getCategory(), transaction.getName(), transaction.getQuantity(),
+                        transaction.getUnit(), transaction.getDate(),
                         new TransactionBudgetDTO(transaction.getBudget().getId(), transaction.getBudget().getName()),
                         new TransactionUserDTO(transaction.getUser().getId(), transaction.getUser().getName()))
                 );
@@ -141,7 +149,8 @@ public class TransactionService {
         return transactions
                 .map(transaction -> new TransactionResponseDTO(transaction.getId(),
                         transaction.getType(), transaction.getAmount(),
-                        transaction.getCategory(), transaction.getDate(),
+                        transaction.getCategory(), transaction.getName(), transaction.getQuantity(),
+                        transaction.getUnit(), transaction.getDate(),
                         new TransactionBudgetDTO(transaction.getBudget().getId(), transaction.getBudget().getName()),
                         new TransactionUserDTO(transaction.getUser().getId(), transaction.getUser().getName()))
                 );

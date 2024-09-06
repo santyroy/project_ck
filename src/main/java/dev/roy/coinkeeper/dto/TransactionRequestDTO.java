@@ -13,6 +13,9 @@ public record TransactionRequestDTO(
         @Positive
         Float amount,
         String category,
+        String name,
+        Float quantity,
+        String unit,
         @NotNull(message = "BudgetId is mandatory")
         @Positive
         Integer budgetId,

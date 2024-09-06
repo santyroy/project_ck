@@ -25,6 +25,9 @@ public class Transaction {
     private Float amount;
     private LocalDateTime date;
     private String category;
+    private String name;
+    private Float quantity;
+    private String unit;
 
     @ManyToOne
     @JoinColumn(name = "budget_id")
