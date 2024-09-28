@@ -47,7 +47,11 @@ public class TransactionService {
         Transaction transaction = new Transaction();
         transaction.setBudget(budget);
         transaction.setUser(user);
-        transaction.setDate(LocalDateTime.now());
+        if (null != dto.date()) {
+            transaction.setDate(dto.date());
+        } else {
+            transaction.setDate(LocalDateTime.now());
+        }
         transaction.setAmount(dto.amount());
         transaction.setName(dto.name());
         transaction.setQuantity(dto.quantity());
